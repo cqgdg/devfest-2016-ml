@@ -1,0 +1,19 @@
+doctype html
+html(ng-app="app")
+    | <#include "/define.ftl">
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height")
+        meta(name="format-detection", content="telephone=yes")
+        title(page-title) Face - ChongQing Devfest 2016 ML
+        link(href="${Context}/webjars/weui/1.0.2/dist/style/weui.min.css", rel="stylesheet")
+    body(ng-controller="BodyCtrl")
+        p(ng-bind="user.nickname")
+        p(ng-bind="user.headImgUrl")
+        script.
+            var Context = "${Context}";
+            var Assets = "${Assets}";
+        script(src ="http://res.wx.qq.com/open/js/jweixin-1.1.0.js")
+        script(src="${Context}/webjars/angular/1.5.8/angular.min.js")
+        script(src="${Context}/webjars/github-com-belerweb-angular-weui/1.0.1/dist/angular-weui.min.js")
+        script(src="${Assets}/js/wx/face.js")
