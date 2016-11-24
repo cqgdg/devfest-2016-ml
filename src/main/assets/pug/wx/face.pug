@@ -7,9 +7,40 @@ html(ng-app="app")
         meta(name="format-detection", content="telephone=yes")
         title(page-title) Face - ChongQing Devfest 2016 ML
         link(href="${Context}/webjars/weui/1.0.2/dist/style/weui.min.css", rel="stylesheet")
+        style.
+            .imgdiv {
+                height: 300px;
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+                background-image: url('/assets/img/top1.jpg');
+                margin-top:90px;
+                background-size: 100% 100%;
+            }
+
+            .right {
+                float: right;
+            }
     body(ng-controller="BodyCtrl")
-        p(ng-bind="user.nickname")
-        p(ng-bind="user.headImgUrl")
+        .container
+            .imgdiv
+                .namediv(style="padding-top:40px;padding-left:200px;")
+                    p(ng-bind="user.nickname")
+                    img(src="{{user.headImgUrl}}",style="width:70px;height:70px;margin-left:10px;margin-top:10px;")
+                    p(style="margin-left:30px;color:#5BC0A1;font-size:26px;") @
+            .button-sp-area
+                a.weui-btn.weui-btn_primary(href='javascript:;',style="width:90%") 点击 拍照/上传 图片
+            .textdiv(style="margin-top:10px;display:inline-block;width:100%")
+                .img.left(style="display:inline-block; width:40%;")
+                    img(ng-src="{{faceVision.faceImageUrl}}", height = "120px" , width="100px",style="margin-left:20px;")
+                .levev_div.right(style="color:#666; font-size:20px; display:inline-block; margin-top:10px; width:60%;")
+                    p 愤怒值 333.009456789
+                    p 惊喜值 444.009456789
+                    p 头饰值 555.009456789
+                //.levev_div(ng-if="faceVision.txt != null",style="color:#666")
+                    p(ng-if="faceVision.anger != null") 愤怒值{{faceVision.anger}}
+                    p(ng-if="faceVision.surprise != null") 惊喜值{{faceVision.surprise}}
+                    p(ng-if="faceVision.headwear != null") 头饰值{{faceVision.headwear}}
         script.
             var Context = "${Context}";
             var Assets = "${Assets}";
