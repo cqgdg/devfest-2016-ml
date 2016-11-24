@@ -20,8 +20,8 @@ gulp.task('pug', function () {
 });
 
 gulp.task('copy', function () {
-    return gulp.src('src/main/assets/lib/**/*')
-        .pipe(gulp.dest('src/main/webapp/assets/'))
+    return gulp.src('src/main/assets/img/**/*')
+        .pipe(gulp.dest('src/main/webapp/assets/img'))
 });
 
 gulp.task('js', function () {
