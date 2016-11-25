@@ -24,15 +24,16 @@ app.controller('BodyCtrl', function ($scope, $http, WuToast) {
             count: 1,
             sizeType: ['compressed'],
             sourceType: ['camera'],
-            success: function (res) {
+            success: function (resp) {
                 var toast = WuToast.loading({message: '处理中...'});
                 var config = {
-                    localId: res.localIds,
+                    localId: resp.localIds[0],
                     isShowProgressTips: 1,
                     success: function (res) {
                         var url = Context + '/api/wx/face?mediaId=' + res.serverId;
                         $http.get(url).success(function (data) {
                             // TODO
+                        }).fail(function(){
                         }).finally(function () {
                             toast.close();
                         });
