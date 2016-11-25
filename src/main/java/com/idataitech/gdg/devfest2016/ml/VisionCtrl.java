@@ -23,11 +23,11 @@ public class VisionCtrl {
     @Qualifier("visionService")
     private VisionService visionService;
 
-    //列表
-    @RequestMapping(method = RequestMethod.GET, value = "/api/admin/vision")
-    public JsonResult<List<JSONObject>> VisionList(@RequestParam String size) {
-        return JsonResult.success(visionService.visionList(null));
-    }
+//    //列表
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/admin/vision")
+//    public JsonResult<List<JSONObject>> VisionList(@RequestParam String size) {
+//        return JsonResult.success(visionService.visionList(null));
+//    }
 
 
 

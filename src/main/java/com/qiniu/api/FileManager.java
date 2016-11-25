@@ -36,9 +36,9 @@ public class FileManager implements AuthFile {
     }
 
     //抓取文件
-    public String getFetchUrl(String mediaId, String token) {
+    public String getFetchUrl(String mediaId, String token,String format) {
         String url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=" + token + "&media_id=" + mediaId;
-        String key = "/audio/" + System.currentTimeMillis() + ".amr";
+        String key = "/audio/" + System.currentTimeMillis() + format;
         String result = "";
         try {
             bucketManager.fetch(url, bucket, key);
