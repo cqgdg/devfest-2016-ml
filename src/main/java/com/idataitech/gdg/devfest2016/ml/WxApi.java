@@ -53,19 +53,23 @@ public class WxApi {
     @RequestMapping("/api/wx/face")
     public JSONObject face(@RequestParam String mediaId) {
 
-        JSONObject result = null;
-
-        FileManager fileManager = new FileManager();
-        String fileUrl = fileManager.getFetchUrl(mediaId, getToken(), ".jpg");
-        byte[] data = downFile(fileUrl);
-        result = visionService.visionResult(data);
-        return result;
+        return ocr(mediaId);
+//        JSONObject result = null;
+//
+//        FileManager fileManager = new FileManager();
+//        String fileUrl = fileManager.getFetchUrl(mediaId, getToken(), ".jpg");
+//        byte[] data = downFile(fileUrl);
+//        result = visionService.visionResult(data);
+//        return result;
     }
 
     @RequestMapping("/api/wx/ocr")
     public JSONObject ocr(@RequestParam String mediaId) {
         JSONObject result = new JSONObject();
-        result.put("text", "");
+        FileManager fileManager = new FileManager();
+        String fileUrl = fileManager.getFetchUrl(mediaId, getToken(), ".jpg");
+        byte[] data = downFile(fileUrl);
+        result.put("text", visionService.visionTextResult(data));
         return result;
     }
 
@@ -132,4 +136,11 @@ public class WxApi {
 
         return in2b;
     }
+
+    @RequestMapping("/api/amr2mp3")
+    public String amr2mp3() {
+        FileManager fileManager = new FileManager();
+        return fileManager.amr2mp3("audio/1480039480737.amr");
+    }
+
 }
