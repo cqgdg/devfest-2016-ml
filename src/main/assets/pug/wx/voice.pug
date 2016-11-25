@@ -36,14 +36,14 @@ html(ng-app="app")
                     img(src="{{user.headImgUrl}}",style="width:70px;height:70px;margin-left:10px;margin-top:10px;")
                     p(style="margin-left:35px;color:#5BC0A1;font-size:26px;") @
             .button-sp-area
-                a.weui-btn.weui-btn_primary(href='javascript:;',style="width:90%") 点击 录音
+                btn.weui-btn.weui-btn_primary(type="button",ng-click="record();",style="width:90%",display="{{displaystate}}") {{voiceTxt}}
             .textdiv(style="margin-top:10px;")
                 .levev_div(style="color:#666; font-size:20px; margin-top:10px;text-align:center;")
-                    p 4567ugfdfgh54w5srdfghjokp[[dsrtych
+                    p {{result.text}}
         script.
             var Context = "${Context}";
             var Assets = "${Assets}";
         script(src ="http://res.wx.qq.com/open/js/jweixin-1.1.0.js")
         script(src="${Context}/webjars/angular/1.5.8/angular.min.js")
         script(src="${Context}/webjars/github-com-belerweb-angular-weui/1.0.1/dist/angular-weui.min.js")
-        script(src="${Assets}/js/wx/face.js")
+        script(src="${Assets}/js/wx/voice.js")
