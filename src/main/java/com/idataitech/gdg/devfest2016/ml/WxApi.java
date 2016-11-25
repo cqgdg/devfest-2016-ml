@@ -119,7 +119,7 @@ public class WxApi {
         result.put("text", googleService.voiceToText(data));
         result.put("user", user);
         result.put("created", new Date());
-        storgeService.saveOcr(result);
+        storgeService.saveVoice(result);
         return result;
     }
 
