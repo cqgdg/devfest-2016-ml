@@ -16,8 +16,14 @@ html(ng-app="app")
             var Context = '${Context}';
             var Assets = '${Assets}';
         style.
-            .profile_details:nth-child(3n) {
-                clear: right;
+            .thumbnail{
+                height:340px;
+            }
+            .thumbnail .image {
+                height: 220px;
+            }
+            .caption {
+                height:120px;
             }
     body.nav-md(style="background:#EDEDED;")
         .container.body
@@ -31,127 +37,39 @@ html(ng-app="app")
                         .col-md-12
                             .x_panel
                                 .x_content
-                                    .col-md-6
-                                        ul.list-unstyled.timeline
-                                            li
-                                                .block
-                                                    .tags
-                                                        a.tag(href='')
-                                                            span nickname
-                                                    .block_content
-                                                        h2.title
-                                                            a 转换结果：
-                                                        //.byline
-                                                            span 13 hours ago
-                                                            |  by
-                                                            a Jane Smith
-                                                        p.excerpt
-                                                            | 天气太冷了 喝碗鸡汤吧哈哈哈哈哈哈哈
-                                                            a Read More
-                                            li
-                                                .block
-                                                    .tags
-                                                        a.tag(href='')
-                                                            span nickname
-                                                    .block_content
-                                                        h2.title
-                                                            a 转换结果：
-                                                        //.byline
-                                                            span 13 hours ago
-                                                            |  by
-                                                            a Jane Smith
-                                                        p.excerpt
-                                                            | 天气太冷了 喝碗鸡汤吧哈哈哈哈哈哈哈
-                                                            a Read More
-                                            li
-                                                .block
-                                                    .tags
-                                                        a.tag(href='')
-                                                            span nickname
-                                                    .block_content
-                                                        h2.title
-                                                            a 转换结果：
-                                                        //.byline
-                                                            span 13 hours ago
-                                                            |  by
-                                                            a Jane Smith
-                                                        p.excerpt
-                                                            | 天气太冷了 喝碗鸡汤吧哈哈哈哈哈哈哈
-                                                            a Read More
-                                            li
-                                                .block
-                                                    .tags
-                                                        a.tag(href='')
-                                                            span nickname
-                                                    .block_content
-                                                        h2.title
-                                                            a 转换结果：
-                                                        //.byline
-                                                            span 13 hours ago
-                                                            |  by
-                                                            a Jane Smith
-                                                        p.excerpt
-                                                            | 天气太冷了 喝碗鸡汤吧哈哈哈哈哈哈哈
-                                                            a Read More
-                                    .col-md-6
-                                        ul.list-unstyled.timeline
-                                            li
-                                                .block
-                                                    .tags
-                                                        a.tag(href='')
-                                                            span nickname
-                                                    .block_content
-                                                        h2.title
-                                                            a 转换结果：
-                                                        //.byline
-                                                            span 13 hours ago
-                                                            |  by
-                                                            a Jane Smith
-                                                        p.excerpt
-                                                            | 天气太冷了 喝碗鸡汤吧哈哈哈哈哈哈哈
-                                                            a Read More
-                                            li
-                                                .block
-                                                    .tags
-                                                        a.tag(href='')
-                                                            span nickname
-                                                    .block_content
-                                                        h2.title
-                                                            a 转换结果：
-                                                        //.byline
-                                                            span 13 hours ago
-                                                            |  by
-                                                            a Jane Smith
-                                                        p.excerpt
-                                                            | 天气太冷了 喝碗鸡汤吧哈哈哈哈哈哈哈
-                                                            a Read More
-                                            li
-                                                .block
-                                                    .tags
-                                                        a.tag(href='')
-                                                            span nickname
-                                                    .block_content
-                                                        h2.title
-                                                            a 转换结果：
-                                                        //.byline
-                                                            span 13 hours ago
-                                                            |  by
-                                                            a Jane Smith
-                                                        p.excerpt
-                                                            | 天气太冷了 喝碗鸡汤吧哈哈哈哈哈哈哈
-                                                            a Read More
-                                            li
-                                                .block
-                                                    .tags
-                                                        a.tag(href='')
-                                                            span nickname
-                                                    .block_content
-                                                        h2.title
-                                                            a 转换结果：
-                                                        //.byline
-                                                            span 13 hours ago
-                                                            |  by
-                                                            a Jane Smith
-                                                        p.excerpt
-                                                            | 天气太冷了 喝碗鸡汤吧哈哈哈哈哈哈哈
-                                                            a Read More
+                                    .row
+                                        .col-md-3
+                                            .thumbnail
+                                                .image.view.view-first
+                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/qr.jpg', alt='image')
+                                                .caption
+                                                    button.btn.btn-success.btn-xs nickname
+                                                    p 一二三四五 上山打老虎
+                                        .col-md-3
+                                            .thumbnail
+                                                .image.view.view-first
+                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/star.png', alt='image')
+                                                .caption
+                                                    button.btn.btn-success.btn-xs nickname
+                                                    p 老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打dao
+                                        .col-md-3
+                                            .thumbnail
+                                                .image.view.view-first
+                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/star3.png', alt='image')
+                                                .caption
+                                                    button.btn.btn-success.btn-xs nickname
+                                                    p 一二三四五 上山打老虎
+                                        .col-md-3
+                                            .thumbnail
+                                                .image.view.view-first
+                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/star.png', alt='image')
+                                                .caption
+                                                    button.btn.btn-success.btn-xs nickname
+                                                    p 一二三四五 上山打老虎
+                                        .col-md-3
+                                            .thumbnail
+                                                .image.view.view-first
+                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/stop.png', alt='image')
+                                                .caption
+                                                    button.btn.btn-success.btn-xs nickname
+                                                    p 一二三四五 上山打老虎
