@@ -15,7 +15,6 @@ app.controller('BodyCtrl', function ($scope, $http, WuToast, WuDialog) {
         jsapi.appId = jsapi.appid;
         jsapi.nonceStr = jsapi.noncestr;
         jsapi.jsApiList = ['chooseImage', 'uploadImage'];
-        console.log(jsapi);
         wx.config(jsapi);
     });
 

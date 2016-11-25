@@ -26,7 +26,8 @@ html(ng-app="app")
                     img(ng-src="{{user.headImgUrl}}",style="width:70px;height:70px;margin-top:10px;border: 1px solid #ccc; border-radius: 50%;")
                     p(style="color:#5BC0A1;font-size:26px;") @
             .button-sp-area
-                button.weui-btn.weui-btn_primary(type="button", style="width:90%", ng-click="record();", ng-if="ready && !result", ng-bind="tip")
+                button.weui-btn.weui-btn_primary(type="button", style="width:90%", ng-click="record();", ng-if="ready && !result",
+                ng-bind="recording?'录音中...点击停止':'点击开始录音并上传识别'")
             .textdiv(style="margin-top:10px;padding: 10px;; border-top: 1px solid #ccc;", ng-if="result", ng-bind="result.text||'未识别出文字'")
         script.
             var Context = "${Context}";
