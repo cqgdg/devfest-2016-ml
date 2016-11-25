@@ -57,9 +57,9 @@ public class GoogleService {
         message.put("audio", audio);
 
         JSONObject config = new JSONObject();
-        audio.put("encoding", "AMR");
-        audio.put("sampleRate", 8000);
-        audio.put("languageCode", "cmn-Hans-CN");
+        config.put("encoding", "AMR");
+        config.put("sampleRate", 8000);
+        config.put("languageCode", "cmn-Hans-CN");
         message.put("config", config);
 
         JSONObject apiResult = executeRequest(speechURL, message);
