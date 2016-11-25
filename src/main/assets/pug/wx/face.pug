@@ -13,9 +13,10 @@ html(ng-app="app")
                 width: 100%;
                 overflow: hidden;
                 position: relative;
-                background-image: url('/assets/img/top1.jpg');
-                margin-top:90px;
-                background-size: 100% 100%;
+                background-image: url('${Assets}/img/top1.jpg');
+                margin-top: 60px;
+                background-size: 100%;
+                background-repeat: no-repeat;
             }
 
             .right {
@@ -24,15 +25,15 @@ html(ng-app="app")
     body(ng-controller="BodyCtrl")
         .container
             .imgdiv
-                .namediv(style="padding-top:40px;padding-left:200px;")
+                .namediv(style="padding: 20px 40px 0 160px;text-align: center;")
                     p(ng-bind="user.nickname")
-                    img(src="{{user.headImgUrl}}",style="width:70px;height:70px;margin-left:10px;margin-top:10px;")
-                    p(style="margin-left:30px;color:#5BC0A1;font-size:26px;") @
+                    img(ng-src="{{user.headImgUrl}}",style="width:70px;height:70px;margin-top:10px;")
+                    p(style="color:#5BC0A1;font-size:26px;") @
             .button-sp-area
-                a.weui-btn.weui-btn_primary(href='javascript:;',style="width:90%") 点击 拍照/上传 图片
-            .textdiv(style="margin-top:10px;display:inline-block;width:100%")
+                button.weui-btn.weui-btn_primary(type="button", style="width:90%", ng-click="upload();", ng-if="ready") 点击自拍 😊 赢奖品
+            //.textdiv(style="margin-top:10px;display:inline-block;width:100%")
                 .img.left(style="display:inline-block; width:40%;")
-                    img(ng-src="{{faceVision.faceImageUrl}}", height = "120px" , width="100px",style="margin-left:20px;")
+                    img(ng-src="{{faceVision.faceImageUrl}}", height="120px" , width="100px",style="margin-left:20px;")
                 .levev_div.right(style="color:#666; font-size:20px; display:inline-block; margin-top:10px; width:60%;")
                     p 愤怒值 333.009456789
                     p 惊喜值 444.009456789

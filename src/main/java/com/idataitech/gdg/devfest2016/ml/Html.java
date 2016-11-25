@@ -8,7 +8,6 @@ public class Html {
 
     @RequestMapping("/**/*.html")
     public void html() {
-
     }
 
 }
