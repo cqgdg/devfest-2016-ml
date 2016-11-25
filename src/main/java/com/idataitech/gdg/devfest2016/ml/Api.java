@@ -20,5 +20,15 @@ public class Api {
         return storgeService.getFaces();
     }
 
+    @RequestMapping("/api/ocrs")
+    public List<JSONObject> ocrs() {
+        return storgeService.getOcrs();
+    }
+
+    @RequestMapping("/api/voices")
+    public List<JSONObject> voices() {
+        return storgeService.getVoices();
+    }
+
 
 }

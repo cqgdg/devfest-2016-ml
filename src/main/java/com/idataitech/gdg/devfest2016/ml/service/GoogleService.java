@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.idataitech.gdg.devfest2016.ml.support.HttpUtil;
 
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
 import okhttp3.Request;
@@ -18,40 +17,19 @@ import okhttp3.Response;
  */
 
 @Service
-public class VisionService {
+public class GoogleService {
 
     private String key = System.getProperty("GOOGLE_KEY", System.getenv("GOOGLE_KEY"));
+    private String visionURL = "https://content-vision.googleapis.com/v1/images:annotate?key=" + key;
+    private String speechURL = "https://speech.googleapis.com/v1beta1/speech:syncrecognize?key=" + key;
 
-    //Vision Api Url
-    private String url = "https://content-vision.googleapis.com/v1/images:annotate?key=" + key;
-
-    //VisionFace Main
+    // 面部识别
     public JSONObject faceDetect(byte[] data) throws Exception {
         long faceVisionStart = System.currentTimeMillis();
 
-        //构造请求参数
-        JSONObject image = new JSONObject();
-        image.put("content", data);
-
-        JSONArray features = new JSONArray();
-        JSONObject feature = new JSONObject();
-        feature.put("type", "FACE_DETECTION");
-        features.add(feature);
-
-        JSONArray requests = new JSONArray();
-        JSONObject request = new JSONObject();
-        request.put("image", image);
-        request.put("features", features);
-        requests.add(request);
-
-        JSONObject message = new JSONObject();
-        message.put("requests", requests);
-
-        RequestBody requestBody = RequestBody.create(HttpUtil.JSON, message.toJSONString());
-        Request req = new Request.Builder().url(url).post(requestBody).build();
-        Response resp = HttpUtil.HTTP.newCall(req).execute();
+        JSONObject message = getRequestMessage("TEXT_DETECTION", data);
+        JSONObject apiResult = executeRequest(visionURL, message);
         long faceVisionTime = System.currentTimeMillis() - faceVisionStart;
-        JSONObject apiResult = (JSONObject) JSONObject.parse(resp.body().bytes());
 
         // 获取头像坐标
         JSONObject faceAnnotation = apiResult.getJSONArray("responses").getJSONObject(0).getJSONArray("faceAnnotations").getJSONObject(0);
@@ -63,9 +41,62 @@ public class VisionService {
         return faceAnnotation;
     }
 
+    public String ocr(byte[] data) throws Exception {
+        JSONObject message = getRequestMessage("TEXT_DETECTION", data);
+        JSONObject apiResult = executeRequest(visionURL, message);
+        return apiResult.getJSONArray("responses").getJSONObject(0)
+                .getJSONArray("textAnnotations").getJSONObject(0)
+                .getString("description");
+    }
+
+    public String voiceToText(byte[] data) throws Exception {
+        JSONObject message = new JSONObject();
+
+        JSONObject audio = new JSONObject();
+        audio.put("content", data);
+        message.put("audio", audio);
+
+        JSONObject config = new JSONObject();
+        audio.put("encoding", "AMR");
+        audio.put("sampleRate", 8000);
+        audio.put("languageCode", "cmn-Hans-CN");
+        message.put("config", config);
+
+        JSONObject apiResult = executeRequest(speechURL, message);
+        return apiResult.getJSONArray("results").getJSONObject(0)
+                .getJSONArray("alternatives").getJSONObject(0)
+                .getString("transcript");
+    }
+
+    private JSONObject getRequestMessage(String type, byte[] data) {
+        JSONObject image = new JSONObject();
+        image.put("content", data);
+
+        JSONArray features = new JSONArray();
+        JSONObject feature = new JSONObject();
+        feature.put("type", type);
+        features.add(feature);
+
+        JSONArray requests = new JSONArray();
+        JSONObject request = new JSONObject();
+        request.put("image", image);
+        request.put("features", features);
+        requests.add(request);
+
+        JSONObject message = new JSONObject();
+        message.put("requests", requests);
+        return message;
+    }
+
+    private JSONObject executeRequest(String url, JSONObject message) throws Exception {
+        RequestBody requestBody = RequestBody.create(HttpUtil.JSON, message.toJSONString());
+        Request req = new Request.Builder().url(url).post(requestBody).build();
+        Response resp = HttpUtil.HTTP.newCall(req).execute();
+        return (JSONObject) JSONObject.parse(resp.body().bytes());
+    }
 
     //判断心情
-    public void calFaceSmileLevel(JSONObject faceVision) {
+    private void calFaceSmileLevel(JSONObject faceVision) {
         String joyLikelihood = faceVision.getString("joyLikelihood");                  //高兴的可能性
         String sorrowLikelihood = faceVision.getString("sorrowLikelihood");            //悲伤的可能性
         String angerLikelihood = faceVision.getString("angerLikelihood");              //愤怒可能性
@@ -103,7 +134,7 @@ public class VisionService {
     }
 
     //表情等级
-    public int expressionLevel(String str) {
+    private int expressionLevel(String str) {
         switch (str) {
             case "VERY_LIKELY":
                 return 100;
@@ -116,35 +147,6 @@ public class VisionService {
         }
         return 0;
     }
-
-    //文字识别请求
-    public String TextData(byte[] data) {
-        String textValue = "{\n" +
-                "  \"requests\": [\n" +
-                "    {\n" +
-                "      \"features\": [\n" +
-                "        {\n" +
-                "          \"type\": \"TEXT_DETECTION\"\n" +
-                "        }\n" +
-                "      ],\n" +
-                "      \"image\": {\n" +
-                "        \"content\": \"" + Base64.encodeBase64URLSafeString(data) +
-                " \"     }\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}\n";
-
-        return textValue;
-    }
-
-    //获取文字
-    public String getText(JSONObject textVision) {
-        return textVision.getJSONObject("body")
-                .getJSONArray("responses").getJSONObject(0)
-                .getJSONArray("textAnnotations").getJSONObject(0)
-                .getString("description");
-    }
-
 
 }
 

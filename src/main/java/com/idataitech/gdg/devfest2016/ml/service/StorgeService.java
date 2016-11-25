@@ -15,6 +15,8 @@ import java.util.List;
 public class StorgeService {
 
     private List<JSONObject> faceStorge = Collections.synchronizedList(new ArrayList<JSONObject>());
+    private List<JSONObject> ocrStorge = Collections.synchronizedList(new ArrayList<JSONObject>());
+    private List<JSONObject> voiceStorge = Collections.synchronizedList(new ArrayList<JSONObject>());
 
     public void saveFace(JSONObject data) {
         faceStorge.add(data);
@@ -22,6 +24,22 @@ public class StorgeService {
 
     public List<JSONObject> getFaces() {
         return Collections.unmodifiableList(faceStorge);
+    }
+
+    public void saveOcr(JSONObject data) {
+        ocrStorge.add(data);
+    }
+
+    public List<JSONObject> getOcrs() {
+        return Collections.unmodifiableList(ocrStorge);
+    }
+
+    public void saveVoice(JSONObject data) {
+        voiceStorge.add(data);
+    }
+
+    public List<JSONObject> getVoices() {
+        return Collections.unmodifiableList(voiceStorge);
     }
 
 }

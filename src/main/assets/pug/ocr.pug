@@ -6,15 +6,9 @@ html(ng-app="app")
         meta(charset="utf-8")
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        meta(name="description", content="")
-        meta(name="keywords", content="")
-        title
+        title OCR - ChongQing Devfest 2016 ML
         link(href="${Context}/webjars/bootstrap-css/3.3.6/css/bootstrap.css", rel="stylesheet")
         link(href="${Context}/webjars/gentelella/1.3.0/build/css/custom.min.css", rel="stylesheet")
-        link(href="${Context}/webjars/angular-ui-notification/0.2.0/dist/angular-ui-notification.min.css", rel="stylesheet")
-        script.
-            var Context = '${Context}';
-            var Assets = '${Assets}';
         style.
             .thumbnail{
                 height:340px;
@@ -25,7 +19,7 @@ html(ng-app="app")
             .caption {
                 height:120px;
             }
-    body.nav-md(style="background:#EDEDED;")
+    body.nav-md(ng-controller="BodyCtrl", style="background:#EDEDED;")
         .container.body
             .main_container
                 .right_col(style="margin-left:0px;background:#fff;")
@@ -38,38 +32,17 @@ html(ng-app="app")
                             .x_panel
                                 .x_content
                                     .row
-                                        .col-md-3
+                                        .col-md-3(ng-repeat="ocr in ocrs | orderBy: 'created' : 'reverse'")
                                             .thumbnail
                                                 .image.view.view-first
-                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/qr.jpg', alt='image')
+                                                    img(style='width: 100%;height:100%; display: block;', ng-src="{{ocr.imgUrl}}")
                                                 .caption
-                                                    button.btn.btn-success.btn-xs nickname
-                                                    p 一二三四五 上山打老虎
-                                        .col-md-3
-                                            .thumbnail
-                                                .image.view.view-first
-                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/star.png', alt='image')
-                                                .caption
-                                                    button.btn.btn-success.btn-xs nickname
-                                                    p 老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打到 打到小松鼠老虎没打dao
-                                        .col-md-3
-                                            .thumbnail
-                                                .image.view.view-first
-                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/star3.png', alt='image')
-                                                .caption
-                                                    button.btn.btn-success.btn-xs nickname
-                                                    p 一二三四五 上山打老虎
-                                        .col-md-3
-                                            .thumbnail
-                                                .image.view.view-first
-                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/star.png', alt='image')
-                                                .caption
-                                                    button.btn.btn-success.btn-xs nickname
-                                                    p 一二三四五 上山打老虎
-                                        .col-md-3
-                                            .thumbnail
-                                                .image.view.view-first
-                                                    img(style='width: 100%;height:100%; display: block;', src='/assets/img/stop.png', alt='image')
-                                                .caption
-                                                    button.btn.btn-success.btn-xs nickname
-                                                    p 一二三四五 上山打老虎
+                                                    label.label.label-success(ng-bind="ocr.user.nickname")
+                                                    label.label.label-primary(ng-bind="ocr.created | date: 'yyyy-MM-dd HH:mm:ss'", style="margin-left:5px;")
+                                                    hr(style="margin: 2px 0;")
+                                                    div(ng-bind="ocr.text", style="padding: 5px;height: 70px;overflow: auto;")
+        script.
+            var Context = "${Context}";
+            var Assets = "${Assets}";
+        script(src="${Context}/webjars/angular/1.5.8/angular.min.js")
+        script(src="${Assets}/js/ocr.js")

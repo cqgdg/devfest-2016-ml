@@ -13,39 +13,25 @@ html(ng-app="app")
                 width: 100%;
                 overflow: hidden;
                 position: relative;
-                background-image: url('/assets/img/top1.jpg');
-                margin-top: 80px;
-                background-size: 100% 100%;
-            }
-
-            .right {
-                float: right;
-            }
-
-            .img_small_div {
-                height: 70%;
-                width: 30%;
-                position: relative;
-                left: 35%;
+                background-image: url('${Assets}/img/top1.jpg');
+                margin-top: 60px;
+                background-size: 100%;
+                background-repeat: no-repeat;
             }
     body(ng-controller="BodyCtrl")
         .container
             .imgdiv
-                .namediv(style="padding-top:40px;padding-left:220px;")
+                .namediv(style="padding: 20px 40px 0 160px;text-align: center;")
                     p(ng-bind="user.nickname")
-                    img(src="{{user.headImgUrl}}",style="width:70px;height:70px;margin-left:10px;margin-top:10px;")
-                    p(style="margin-left:35px;color:#5BC0A1;font-size:26px;") @
+                    img(ng-src="{{user.headImgUrl}}",style="width:70px;height:70px;margin-top:10px;border: 1px solid #ccc; border-radius: 50%;")
+                    p(style="color:#5BC0A1;font-size:26px;") @
             .button-sp-area
-                a.weui-btn.weui-btn_primary(href='javascript:;',style="width:90%") 点击 拍照/上传 图片
-            .textdiv(style="margin-top:10px;")
-                .img_small_div
-                    img(ng-src="{{faceVision.faceImageUrl}}", height = "120px" , width="100px",)
-                .levev_div(style="color:#666; font-size:20px; margin-top:10px;text-align:center;")
-                    p 4567ugfdfgh54w5srdfghjokp[[dsrtych
+                button.weui-btn.weui-btn_primary(type="button", style="width:90%", ng-click="upload();", ng-if="ready && !result") 点击上传图片进行文字识别
+            .textdiv(style="margin-top:10px;padding: 10px;; border-top: 1px solid #ccc;", ng-if="result", ng-bind="result.text||'未识别出文字'")
         script.
             var Context = "${Context}";
             var Assets = "${Assets}";
         script(src ="http://res.wx.qq.com/open/js/jweixin-1.1.0.js")
         script(src="${Context}/webjars/angular/1.5.8/angular.min.js")
         script(src="${Context}/webjars/github-com-belerweb-angular-weui/1.0.1/dist/angular-weui.min.js")
-        script(src="${Assets}/js/wx/face.js")
+        script(src="${Assets}/js/wx/ocr.js")
