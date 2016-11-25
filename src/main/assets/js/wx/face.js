@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ng.weui']);
 
-app.controller('BodyCtrl', function ($scope, $http, WuToast) {
+app.controller('BodyCtrl', function ($scope, $http, WuToast, WuDialog) {
 
     $http.get(Context + '/api/wx/session').success(function (user) {
         $scope.user = user;
@@ -25,33 +25,24 @@ app.controller('BodyCtrl', function ($scope, $http, WuToast) {
             sizeType: ['compressed'],
             sourceType: ['camera'],
             success: function (resp) {
-                var toast = WuToast.loading({message: '处理中...'});
                 var config = {
                     localId: resp.localIds[0],
-                    isShowProgressTips: 1,
                     success: function (res) {
+                        var toast = WuToast.loading({message: '处理中...'});
                         var url = Context + '/api/wx/face?mediaId=' + res.serverId;
                         $http.get(url).success(function (data) {
-                            // TODO
-                        }).fail(function(){
+                            $scope.result = data;
+                        }).error(function () {
+                            WuDialog.alert({title: '服务器错误了，请重试！'})
                         }).finally(function () {
                             toast.close();
                         });
                     },
                     fail: function () {
-                        toast.close();
+                        WuDialog.alert({title: '上传图片错误了，请重试！'});
                     }
                 };
                 wx.uploadImage(config);
-            },
-            fail: function () {
-
-            },
-            complete: function () {
-
-            },
-            cancel: function () {
-                // 取消没有礼品哦
             }
         };
         wx.chooseImage(config);
