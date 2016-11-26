@@ -30,17 +30,11 @@ html(ng-app="app")
                                             .col-md-3.profile_details
                                                 .well.profile_view
                                                     .col-sm-12
-                                                        h2.brief(style="margin-bottom:10px;") face
-                                                        .col-xs-7
-                                                            p
-                                                                strong 扫描二维码
-                                                        .right.col-xs-5.text-center
-                                                            img.img-circle.img-responsive(src="/assets/img/qr.jpg", alt="",width="100px;",height="100px",style="margin-top: -29px;border-radius:0px;")
+                                                        img.img-responsive(src="${Assets}/img/face.png")
                                                     .col-xs-12.bottom.text-center
                                                         .col-xs-12.col-sm-12.emphasis
-                                                            p.ratings
-                                                                button.btn.btn-primary.btn-xs(type='button')
-                                                                    |  微笑度 ^_^
+                                                            label.label.label-primary.pull-left 扫描二维码参与活动
+                                                            button.btn.btn-danger.btn-xs.pull-right(type="button", ng-click="stop=true;", ng-bind="stop?'已停止':'停止活动'")
                                             .col-md-3.profile_details(ng-repeat="face in faces | orderBy: 'faceSmileLevel' : 'reverse'")
                                                 .well.profile_view
                                                     .col-sm-12

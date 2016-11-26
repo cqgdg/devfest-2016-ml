@@ -24,6 +24,13 @@ html(ng-app="app")
             strong {
                 padding-left: 2px;
             }
+
+            .thumbnail {
+                height: auto;
+            }
+            .thumbnail .image {
+                height: auto;
+            }
     body.nav-md(ng-controller="BodyCtrl", style="background:#EDEDED;")
         .container.body
             .main_container
@@ -33,17 +40,26 @@ html(ng-app="app")
                             h3 Voice - ChongQing Devfest 2016 ML
                     .clearfix
                     .row
-                        .col-md-12
+                        .col-md-9
                             .x_panel
                                 .x_content
                                     ul.list-unstyled.timeline
                                         li.col-md-6(ng-repeat="voice in voices | orderBy: 'created' : 'reverse'")
                                             .block
                                                 .tags
-                                                    .tag(ng-bind="voice.created | date: 'yyy-MM-dd HH:mm:ss'")
+                                                    .tag(ng-bind="voice.created | date: 'yyyy-MM-dd HH:mm:ss'")
                                                 .block_content
                                                     h2.title(ng-bind="voice.user.nickname")
+                                                    hr(style="margin: 2px 0;")
                                                     div(ng-bind="voice.text")
+                        .col-md-3
+                            .thumbnail
+                                .image.view.view-first
+                                    img(style='width: 100%;display: block;', src="${Assets}/img/voice.png")
+                                .caption
+                                    label.label.label-success 扫描二维码体验
+
+
         script.
             var Context = "${Context}";
             var Assets = "${Assets}";

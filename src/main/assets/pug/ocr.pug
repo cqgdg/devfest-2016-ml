@@ -14,7 +14,7 @@ html(ng-app="app")
                 height:340px;
             }
             .thumbnail .image {
-                height: 220px;
+                height: auto;
             }
             .caption {
                 height:120px;
@@ -32,6 +32,12 @@ html(ng-app="app")
                             .x_panel
                                 .x_content
                                     .row
+                                        .col-md-3
+                                            .thumbnail
+                                                .image.view.view-first
+                                                    img(style='width: 100%;display: block;', src="${Assets}/img/ocr.png")
+                                                .caption
+                                                    label.label.label-success 扫描二维码体验
                                         .col-md-3(ng-repeat="ocr in ocrs | orderBy: 'created' : 'reverse'")
                                             .thumbnail
                                                 .image.view.view-first

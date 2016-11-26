@@ -4,7 +4,9 @@ app.controller('BodyCtrl', function ($scope, $http, $timeout) {
         $http.get(Context + '/api/faces').success(function (faces) {
             $scope.faces = faces;
         }).finally(function () {
-            $timeout(load, 1000);
+            if (!$scope.stop) {
+                $timeout(load, 1000);
+            }
         });
     };
     $timeout(load, 0);

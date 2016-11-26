@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.idataitech.gdg.devfest2016.ml.support.HttpUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import okhttp3.Request;
@@ -19,15 +21,17 @@ import okhttp3.Response;
 @Service
 public class GoogleService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GoogleService.class);
     private String key = System.getProperty("GOOGLE_KEY", System.getenv("GOOGLE_KEY"));
     private String visionURL = "https://content-vision.googleapis.com/v1/images:annotate?key=" + key;
     private String speechURL = "https://speech.googleapis.com/v1beta1/speech:syncrecognize?key=" + key;
 
     // 面部识别
     public JSONObject faceDetect(byte[] data) throws Exception {
+        LOGGER.debug("key: {}", key);
         long faceVisionStart = System.currentTimeMillis();
 
-        JSONObject message = getRequestMessage("TEXT_DETECTION", data);
+        JSONObject message = getRequestMessage("FACE_DETECTION", data);
         JSONObject apiResult = executeRequest(visionURL, message);
         long faceVisionTime = System.currentTimeMillis() - faceVisionStart;
 
@@ -92,7 +96,9 @@ public class GoogleService {
         RequestBody requestBody = RequestBody.create(HttpUtil.JSON, message.toJSONString());
         Request req = new Request.Builder().url(url).post(requestBody).build();
         Response resp = HttpUtil.HTTP.newCall(req).execute();
-        return (JSONObject) JSONObject.parse(resp.body().bytes());
+        JSONObject apiResult = (JSONObject) JSONObject.parse(resp.body().bytes());
+        LOGGER.info("Google api result: ", apiResult);
+        return apiResult;
     }
 
     //判断心情
