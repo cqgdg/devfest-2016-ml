@@ -49,7 +49,7 @@ public class FileService {
         //设置转码操作参数
         String fops = "avthumb/mp3/ab/192k/ar/44100/acodec/libmp3lame";
         //设置转码的队列
-        String pfops = fops + "|saveas/" + UrlSafeBase64.encodeToString(newKey);
+        String pfops = fops + "|saveas/" + UrlSafeBase64.encodeToString(bucket + ':' + newKey);
         //设置pipeline参数
         StringMap params = new StringMap().putWhen("force", 1, true).putNotEmpty("pipeline", "amr2mp3");
         operater.pfop(bucket, key, pfops, params);
